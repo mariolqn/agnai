@@ -981,7 +981,7 @@ const SamplerOrder: Component<{
   const [order, setOrder] = createSignal(presetOrder())
 
   const [value, setValue] = createSignal(order())
-  const [disabled, setDisabled] = createSignal(props.inherit?.disabledSamplers || [])
+  const [disabled, setDisabled] = createSignal(ensureSamplerArray(props.inherit?.disabledSamplers))
   const [sorter, setSorter] = createSignal<Sorter>()
 
   createEffect(() => {
