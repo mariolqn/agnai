@@ -990,7 +990,7 @@ const SamplerOrder: Component<{
     if (inherited !== order()) {
       setOrder(inherited)
       setValue(inherited)
-      setDisabled(props.inherit?.disabledSamplers || [])
+      setDisabled(ensureSamplerArray(props.inherit?.disabledSamplers))
       resort()
     }
   })
@@ -1206,4 +1206,14 @@ function updateValue(values: TempSetting[], service: AIAdapter, field: string, n
   return values.map<TempSetting>((val) =>
     val.field === field ? { ...val, value: nextValue } : val
   )
+}
+
+function ensureSamplerArray(data?: string | any[]) {
+  if (!data) return []
+  if (typeof data === 'string') {
+    return data.split(',')
+  }
+
+  if (Array.isArray(data)) return data
+  return []
 }
