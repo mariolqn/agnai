@@ -96,9 +96,8 @@ const SingleMessage: Component<
   }))
 
   const [edit, setEdit] = createSignal(false)
-  const isBot = createMemo(() => !!props.msg.characterId)
-  const isUser = createMemo(() => !!props.msg.userId)
-  const isImage = createMemo(() => props.original.adapter === 'image')
+  const isBot = !!props.msg.characterId
+  const isUser = !!props.msg.userId
   const [img, setImg] = createSignal('h-full')
   const opts = createSignal(false)
 
@@ -175,8 +174,8 @@ const SingleMessage: Component<
             <span
               class={`float-left pr-3`}
               style={{ 'min-height': user.ui.imageWrap ? '' : img() }}
-              data-bot-avatar={isBot()}
-              data-user-avatar={isUser()}
+              data-bot-avatar={isBot}
+              data-user-avatar={isUser}
             >
               <Switch>
                 <Match when={props.msg.event === 'world'}>
@@ -259,8 +258,8 @@ const SingleMessage: Component<
                   class={`chat-name text-900 mr-2 max-w-[160px] overflow-hidden  text-ellipsis whitespace-nowrap sm:max-w-[400px]`}
                   // Necessary to override text-md and text-lg's line height, for proper alignment
                   style="line-height: 1;"
-                  data-bot-name={isBot()}
-                  data-user-name={isUser()}
+                  data-bot-name={isBot}
+                  data-user-name={isUser}
                   classList={{
                     hidden: !!props.msg.event,
                     'sm:text-base': props.isPaneOpen,
@@ -280,8 +279,8 @@ const SingleMessage: Component<
                 <span
                   classList={{ invisible: ctx.anonymize }}
                   class={`message-date text-600 flex items-center text-xs leading-none`}
-                  data-bot-time={isBot()}
-                  data-user-time={isUser()}
+                  data-bot-time={isBot}
+                  data-user-time={isUser}
                 >
                   {new Date(props.msg.createdAt).toLocaleString()}
                   <Show when={canShowMeta(props.original, ctx.promptHistory[props.original._id])}>
@@ -339,15 +338,11 @@ const SingleMessage: Component<
 
                 <Match when={props.last && props.swipe}>
                   <div class="mr-4 flex items-center gap-4 text-sm">
-                    <X
-                      size={22}
-                      class="cursor-pointer text-red-500"
-                      onClick={() => props.cancelSwipe?.()}
-                    />
+                    <X size={22} class="cursor-pointer text-red-500" onClick={props.cancelSwipe} />
                     <Check
                       size={22}
                       class="cursor-pointer text-green-500"
-                      onClick={() => props.confirmSwipe?.()}
+                      onClick={props.confirmSwipe}
                     />
                   </div>
                 </Match>
@@ -355,7 +350,7 @@ const SingleMessage: Component<
             </span>
             <div ref={avatarRef}>
               <Switch>
-                <Match when={isImage()}>
+                <Match when={props.msg.adapter === 'image'}>
                   <div class="flex flex-wrap gap-2">
                     <img
                       class={'mt-2 max-h-32 max-w-[unset] cursor-pointer rounded-md'}
