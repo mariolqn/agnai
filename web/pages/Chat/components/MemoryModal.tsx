@@ -21,7 +21,7 @@ const ChatMemoryModal: Component<{
     embeds: s.embeds.filter((em) => em.metadata.type === 'user'),
   }))
 
-  const [id, setId] = createSignal(props.chat.memoryId || '')
+  const [id, setId] = createSignal(props.chat.memoryId || 'new')
   const [embedId, setEmbedId] = createSignal(props.chat.userEmbedId)
   const [book, setBook] = createSignal<AppSchema.MemoryBook>()
   const [entrySort, setEntrySort] = createSignal<EntrySort>('creationDate')
