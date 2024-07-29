@@ -156,7 +156,7 @@
     "parcel": "^2.9.3",
     "path-browserify": "^1.0.0",
     "pdfdataextract": "^3.2.0",
-    "pdfjs-dist": "2.10.377",
+    "pdfjs-dist": "4.2.67",
     "png-chunk-text": "^1.0.0",
     "png-chunks-encode": "^1.0.0",
     "png-chunks-extract": "^1.0.0",
